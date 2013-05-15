@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<switchyard xmlns="urn:switchyard-config:switchyard:1.0" xmlns:bean="urn:switchyard-component-bean:config:1.0" xmlns:jca="urn:switchyard-component-jca:config:1.0" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" name="hello_world-6" targetNamespace="urn:org.switchyard.migration:hello_world_6:1.0">
+  <sca:composite name="hello_world-6" targetNamespace="urn:org.switchyard.migration:hello_world_6:1.0">
+    <sca:component name="DisplayService">
+      <bean:implementation.bean class="org.switchyard.migration.helloworld.DisplayServiceBean"/>
+      <sca:service name="DisplayService">
+        <sca:interface.java interface="org.switchyard.migration.helloworld.DisplayService"/>
+      </sca:service>
+    </sca:component>
+    <sca:service name="DisplayService" promote="DisplayService/DisplayService">
+      <sca:interface.java interface="org.switchyard.migration.helloworld.DisplayService"/>
+      <jca:binding.jca>
+        <jca:inboundConnection>
+          <jca:resourceAdapter name="hornetq-ra.rar" type="javax.resource.spi.ResourceAdapter"/>
+          <jca:activationSpec type="javax.resource.spi.ActivationSpec">
+            <jca:property name="destinationType" value="javax.jms.Queue"/>
+            <jca:property name="destination" value="queue/quickstart_helloworld_Request_gw"/>
+          </jca:activationSpec>
+        </jca:inboundConnection>
+        <jca:inboundInteraction>
+          <jca:listener>javax.jms.MessageListener</jca:listener>
+          <jca:endpoint type="org.switchyard.component.jca.endpoint.JMSEndpoint"/>
+        </jca:inboundInteraction>
+      </jca:binding.jca>
+    </sca:service>
+  </sca:composite>
+</switchyard>
