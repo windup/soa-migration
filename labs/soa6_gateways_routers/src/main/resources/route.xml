@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ASCII"?>
+<route xmlns="http://camel.apache.org/schema/spring">
+  <from uri="switchyard://SimpleService"/>
+  <log message="SimpleService - message received"/>
+  <bean ref="MyAction" method="displayMessage"/>
+  <log message="SimpleService - playing with message content"/>
+  <bean ref="MyAction" method="playWithMessage"/>
+  <bean ref="MyAction" method="displayMessage"/>
+  <to uri="switchyard://PrintService"/>
+</route>
