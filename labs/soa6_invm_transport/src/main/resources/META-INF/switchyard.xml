@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<switchyard xmlns="urn:switchyard-config:switchyard:1.0" xmlns:bean="urn:switchyard-component-bean:config:1.0" xmlns:camel="urn:switchyard-component-camel:config:1.0" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" name="soa6_invm_transport" targetNamespace="urn:org.switchyard.migration:soa6_invm_transport:1.0">
+  <sca:composite name="soa6_invm_transport" targetNamespace="urn:org.switchyard.migration:soa6_invm_transport:1.0">
+    <sca:component name="Route">
+      <camel:implementation.camel>
+        <camel:java class="org.switchyard.migration.invm.CamelServiceRoute"/>
+      </camel:implementation.camel>
+      <sca:service name="Service1">
+        <sca:interface.java interface="org.switchyard.migration.invm.MyService"/>
+      </sca:service>
+      <sca:reference name="Service2">
+        <sca:interface.java interface="org.switchyard.migration.invm.MyService"/>
+      </sca:reference>
+    </sca:component>
+    <sca:service name="Service1" promote="Route/Service1">
+      <sca:interface.java interface="org.switchyard.migration.invm.MyService"/>
+      <sca:binding.sca/>
+    </sca:service>
+    <sca:component name="Service2">
+      <bean:implementation.bean class="org.switchyard.migration.invm.Service2Bean"/>
+      <sca:service name="Service2">
+        <sca:interface.java interface="org.switchyard.migration.invm.MyService"/>
+      </sca:service>
+    </sca:component>
+  </sca:composite>
+</switchyard>
