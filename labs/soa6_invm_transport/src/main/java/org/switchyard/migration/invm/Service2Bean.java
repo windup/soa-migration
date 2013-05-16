@@ -7,8 +7,7 @@ public class Service2Bean implements MyService {
 
 	@Override
 	public String process(String message) {
-		// TODO Auto-generated method stub
-		return null;
+		return message + "\nHello from Service 2!";
 	}
 
 }

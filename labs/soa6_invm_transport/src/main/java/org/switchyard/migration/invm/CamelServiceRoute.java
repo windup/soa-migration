@@ -9,10 +9,12 @@ public class CamelServiceRoute extends RouteBuilder {
 	 * endpoint is required to be a SwitchYard service.
 	 */
 	public void configure() {
-		// TODO Auto-generated method stub
 		from("switchyard://Service1")
-			.log("Received message for 'Service1'")
-			.to("switchyard://Service2");
+			.log("Received message for 'Service1' : ${body}")
+			.setBody(simple("${body}\nHello from Service 1!"))
+			.log("${body}")
+			.to("switchyard://Service2")
+			.log("${body}");
 	}
 
 }

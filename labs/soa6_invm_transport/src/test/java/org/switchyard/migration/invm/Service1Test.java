@@ -16,17 +16,20 @@ public class Service1Test {
 	@ServiceOperation("Service1")
 	private Invoker service;
 
+	private static final String REQUEST = "InVM";
+	private static final String EXPECTED = REQUEST 
+			+ "\nHello from Service 1!" 
+			+ "\nHello from Service 2!";
+
 	@Test
 	public void testProcess() throws Exception {
 		// TODO Auto-generated method stub
 		// initialize your test message
-		String message = "InVM";
-		String result = service.operation("process").sendInOut(message)
+		String result = service.operation("process").sendInOut(REQUEST)
 				.getContent(String.class);
-		System.out.println(result);
 
 		// validate the results
-		//Assert.assertTrue("Implement me", false);
+		Assert.assertEquals(EXPECTED, result);
 	}
 
 }
