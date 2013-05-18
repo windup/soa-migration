@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ASCII"?>
+<route xmlns="http://camel.apache.org/schema/spring">
+  <from uri="switchyard://OrderService"/>
+  <log message="\nOrderService - message received:\n${body}\n"/>
+  <bean ref="DVDStore"/>
+  <log message="\nOrderService - after DVDStore:\n${body}\n"/>
+</route>

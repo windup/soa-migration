@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="OrderService" targetNamespace="urn:org.switchyard.migration:soa6_transform_XML2POJO:1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:org.switchyard.migration:soa6_transform_XML2POJO:1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:org.switchyard.migration:soa6_transform_XML2POJO:1.0" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:org.switchyard.migration:soa6_transform_XML2POJO:1.0">
+  <xs:complexType name="order">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="customer" type="tns:customer"/>
+      <xs:element minOccurs="0" name="header" type="tns:orderHeader"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="items" nillable="true" type="tns:orderItem"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="customer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+      <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+      <xs:element minOccurs="0" name="state" type="xs:string"/>
+      <xs:element minOccurs="0" name="userName" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="orderHeader">
+    <xs:sequence>
+      <xs:element name="netAmount" type="xs:double"/>
+      <xs:element minOccurs="0" name="orderDate" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="orderId" type="xs:string"/>
+      <xs:element name="statusCode" type="xs:int"/>
+      <xs:element name="tax" type="xs:double"/>
+      <xs:element name="totalAmount" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="orderItem">
+    <xs:sequence>
+      <xs:element name="position" type="xs:int"/>
+      <xs:element name="price" type="xs:double"/>
+      <xs:element minOccurs="0" name="productId" type="xs:string"/>
+      <xs:element name="quantity" type="xs:int"/>
+      <xs:element minOccurs="0" name="title" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="order" nillable="true" type="tns:order"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="process">
+    <wsdl:part name="arg0" element="tns:order">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="processResponse">
+    <wsdl:part name="return" element="tns:order">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="OrderServicePortType">
+    <wsdl:operation name="process">
+      <wsdl:input name="process" message="tns:process">
+    </wsdl:input>
+      <wsdl:output name="processResponse" message="tns:processResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OrderServiceSoapBinding" type="tns:OrderServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="process">
+      <soap:operation soapAction="process" style="document"/>
+      <wsdl:input name="process">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="processResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OrderService">
+    <wsdl:port name="OrderServicePort" binding="tns:OrderServiceSoapBinding">
+      <soap:address location="http://localhost:8080/soa6_transform_XML2POJO/OrderService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

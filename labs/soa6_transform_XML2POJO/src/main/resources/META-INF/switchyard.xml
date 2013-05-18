@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<switchyard xmlns="urn:switchyard-config:switchyard:1.0" xmlns:camel="urn:switchyard-component-camel:config:1.0" xmlns:jms="urn:switchyard-component-camel-jms:config:1.0" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:transform="urn:switchyard-config:transform:1.0" name="soa6_transform_XML2POJO" targetNamespace="urn:org.switchyard.migration:soa6_transform_XML2POJO:1.0">
+  <sca:composite name="soa6_transform_XML2POJO" targetNamespace="urn:org.switchyard.migration:soa6_transform_XML2POJO:1.0">
+    <sca:component name="Route">
+      <camel:implementation.camel>
+        <camel:xml path="route.xml"/>
+      </camel:implementation.camel>
+      <sca:service name="OrderService">
+        <sca:interface.java interface="org.switchyard.migration.xml2pojo.OrderService"/>
+      </sca:service>
+    </sca:component>
+    <sca:service name="OrderService" promote="Route/OrderService">
+      <sca:interface.wsdl interface="OrderService.wsdl#wsdl.porttype(OrderServicePortType)"/>
+      <jms:binding.jms>
+        <jms:contextMapper/>
+        <jms:queue>quickstart_transform_pojo_gw</jms:queue>
+        <jms:connectionFactory>#ConnectionFactory</jms:connectionFactory>
+        <jms:replyTo>quickstart_simple_transformation_Response</jms:replyTo>
+      </jms:binding.jms>
+    </sca:service>
+  </sca:composite>
+  <transforms>
+    <transform:transform.smooks from="{urn:org.switchyard.migration:soa6_transform_XML2POJO:1.0}order" to="java:org.jboss.soa.esb.dvdstore.Order" type="XML2JAVA" config="smooks-res.xml"/>
+    <transform:transform.smooks from="java:org.jboss.soa.esb.dvdstore.Order" to="{urn:org.switchyard.migration:soa6_transform_XML2POJO:1.0}order" type="JAVA2XML" config="smooks-res.xml"/>
+  </transforms>
+</switchyard>

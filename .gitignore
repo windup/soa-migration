@@ -8,5 +8,6 @@ bin/
 *.iml
 *.ipr
 *.iws
+*.svn
 .xml
 .DS_Store

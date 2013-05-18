@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messaging-deployment xmlns="urn:jboss:messaging-deployment:1.0">
+    <hornetq-server>
+        <jms-destinations>
+            <jms-queue name="quickstart_simple_transformation_Response">
+                <entry name="quickstart_simple_transformation_Response"/>
+            </jms-queue>
+            <jms-queue name="quickstart_transform_pojo_gw">
+                <entry name="quickstart_transform_pojo_gw"/>
+            </jms-queue>
+        </jms-destinations>
+    </hornetq-server>
+</messaging-deployment>
