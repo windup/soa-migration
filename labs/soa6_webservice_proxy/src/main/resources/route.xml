@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ASCII"?>
+<route xmlns="http://camel.apache.org/schema/spring">
+  <from uri="switchyard://HelloWorldProxy"/>
+  <log message="Proxy - Message Before Routing to HelloWorld: \n${body}"/>
+  <to uri="switchyard://HelloWorld"/>
+  <log message="Proxy - Message After Routing to HelloWorld: \n${body}"/>
+</route>

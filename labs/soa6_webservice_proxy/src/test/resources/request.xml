@@ -1,0 +1,10 @@
+<soapenv:Envelope 
+	xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:hello="http://webservice_proxy_basic/helloworld">
+	<soapenv:Header/>
+	<soapenv:Body>
+		<hello:sayHello>
+			<toWhom>David</toWhom>
+		</hello:sayHello>
+	</soapenv:Body>
+</soapenv:Envelope>

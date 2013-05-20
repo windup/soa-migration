@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<switchyard xmlns="urn:switchyard-config:switchyard:1.0" xmlns:camel="urn:switchyard-component-camel:config:1.0" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:soap="urn:switchyard-component-soap:config:1.0" name="soa6_webservice_proxy" targetNamespace="urn:org.switchyard.migration:soa6_webservice_proxy:1.0">
+  <sca:composite name="soa6_webservice_proxy" targetNamespace="urn:org.switchyard.migration:soa6_webservice_proxy:1.0">
+    <sca:component name="Route">
+      <camel:implementation.camel>
+        <camel:xml path="route.xml"/>
+      </camel:implementation.camel>
+      <sca:service name="HelloWorldProxy">
+        <sca:interface.wsdl interface="HelloWorld.wsdl#wsdl.porttype(HelloWorld)"/>
+      </sca:service>
+      <sca:reference name="HelloWorld">
+        <sca:interface.wsdl interface="HelloWorld.wsdl#wsdl.porttype(HelloWorld)"/>
+      </sca:reference>
+    </sca:component>
+    <sca:service name="HelloWorldProxy" promote="Route/HelloWorldProxy">
+      <sca:interface.wsdl interface="HelloWorld.wsdl#wsdl.porttype(HelloWorld)"/>
+      <soap:binding.soap>
+        <soap:contextMapper/>
+        <soap:wsdl>HelloWorld.wsdl</soap:wsdl>
+        <soap:contextPath>HelloWorldProxy</soap:contextPath>
+      </soap:binding.soap>
+    </sca:service>
+    <sca:reference name="HelloWorld" multiplicity="0..1" promote="Route/HelloWorld">
+      <sca:interface.wsdl interface="HelloWorld.wsdl#wsdl.porttype(HelloWorld)"/>
+      <soap:binding.soap>
+        <soap:wsdl>HelloWorld.wsdl</soap:wsdl>
+      </soap:binding.soap>
+    </sca:reference>
+  </sca:composite>
+</switchyard>
