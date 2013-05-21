@@ -21,10 +21,9 @@ public class OrchestrationServiceTest {
 		String message = "Hello ABC!";
 		String result = service.operation("process").sendInOut(message)
 				.getContent(String.class);
-		System.out.println("result ==> " + result);
 
 		// validate the results
-		//Assert.assertTrue("Implement me", false);
+		Assert.assertEquals("Service 3 Service 2 Service 1 Hello ABC!", result);
 	}
 
 }
