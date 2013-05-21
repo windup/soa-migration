@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ASCII"?>
+<route xmlns="http://camel.apache.org/schema/spring">
+  <from uri="switchyard://Service2"/>
+  <to uri="language://groovy:classpath:scripts/service2.groovy"/>
+</route>

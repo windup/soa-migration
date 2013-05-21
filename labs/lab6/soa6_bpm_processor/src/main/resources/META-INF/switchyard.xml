@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<switchyard xmlns="urn:switchyard-config:switchyard:1.0" xmlns:bpm="urn:switchyard-component-bpm:config:1.0" xmlns:camel="urn:switchyard-component-camel:config:1.0" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" name="soa6_bpm_processor" targetNamespace="urn:org.switchyard.migration:soa6_bpm_processor:1.0">
+  <sca:composite name="soa6_bpm_processor" targetNamespace="urn:org.switchyard.migration:soa6_bpm_processor:1.0">
+    <sca:component name="ProcessDefinition">
+      <bpm:implementation.bpm persistent="false" processId="OrchestrationService">
+        <bpm:actions>
+          <bpm:action type="START_PROCESS">
+            <bpm:inputs>
+              <bpm:mapping expression="message.content" expressionType="MVEL" variable="contentInput"/>
+            </bpm:inputs>
+            <bpm:outputs>
+              <bpm:mapping expression="contentOutput" expressionType="MVEL" variable="contentOutput"/>
+            </bpm:outputs>
+          </bpm:action>
+        </bpm:actions>
+        <bpm:manifest>
+          <bpm:resources>
+            <bpm:resource location="ProcessDefinition.bpmn" type="BPMN2"/>
+          </bpm:resources>
+        </bpm:manifest>
+      </bpm:implementation.bpm>
+      <sca:service name="OrchestrationService">
+        <sca:interface.java interface="org.switchyard.migration.bpm.OrchestrationService"/>
+      </sca:service>
+      <sca:reference name="Service1">
+        <interface.esb inputType="java:java.lang.String" outputType="java:java.lang.String"/>
+      </sca:reference>
+      <sca:reference name="Service2">
+        <interface.esb inputType="java:java.lang.String" outputType="java:java.lang.String"/>
+      </sca:reference>
+      <sca:reference name="Service3">
+        <interface.esb inputType="java.lang.String" outputType="java.lang.String"/>
+      </sca:reference>
+    </sca:component>
+    <sca:component name="Service1">
+      <camel:implementation.camel>
+        <camel:xml path="service1.xml"/>
+      </camel:implementation.camel>
+      <sca:service name="Service1">
+        <interface.esb inputType="java:java.lang.String" outputType="java:java.lang.String"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="Service2">
+      <camel:implementation.camel>
+        <camel:xml path="service2.xml"/>
+      </camel:implementation.camel>
+      <sca:service name="Service2">
+        <interface.esb inputType="java:java.lang.String" outputType="java:java.lang.String"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="Service3">
+      <camel:implementation.camel>
+        <camel:xml path="service3.xml"/>
+      </camel:implementation.camel>
+      <sca:service name="Service3">
+        <interface.esb inputType="java.lang.String" outputType="java.lang.String"/>
+      </sca:service>
+    </sca:component>
+    <sca:service name="OrchestrationService" promote="ProcessDefinition/OrchestrationService">
+      <sca:interface.java interface="org.switchyard.migration.bpm.OrchestrationService"/>
+    </sca:service>
+  </sca:composite>
+  <domain>
+    <handlers>
+      <handler class="org.switchyard.handlers.MessageTrace" name="MessageTrace"/>
+    </handlers>
+  </domain>
+</switchyard>
