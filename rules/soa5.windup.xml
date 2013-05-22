@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:windup="http://www.jboss.org/schema/windup" xsi:schemaLocation="http://www.springframework.org/schema/beans            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd            http://www.jboss.org/schema/windup http://www.jboss.org/schema/windup.xsd">
+    
+    <!--
+     1) 
+     2) Define contract
+     3) Action classes become Camel beans
+     4) Promote service
+     5) Add JMS binding
+     6) Create JMS destination
+     7) ESB listener dropped
+     8) Profit!
+	-->
+	
+	
+	
+	
+    <windup:pipeline type="XML" id="xml-extension-decorators">
+        <windup:xpath-value description="JMS Listener Brad " xpath="//*[local-name()='jms-provider']/@connection-factory" effort="1" inline="true"/>
+  
+  
+  		<!-- Flag Service Component For Service Route -->
+		<windup:xpath-value description="Service Component Definition Required for" xpath="//*[local-name()='service']/@name" effort="1" inline="true"/>
+  
+ 		 <!-- Create camel route for ESB service -->
+        <windup:xpath-gate xpath="//*[local-name()='service']">
+            <windup:decorators>
+            <windup:xslt-transform location="service-route.xsl"
+        						description="Camel Routing Service"
+        						extension="-camel.xml"/>
+        	</windup:decorators>
+        </windup:xpath-gate>
+    </windup:pipeline>
+    
+    
+    
+    <windup:pipeline type="JAVA" id="java-extension-decorators">
+		<windup:java-classification regex="org.jboss.soa.esb.actions.AbstractActionLifecycle$" description="JBossESB Action Handler Classification"/>
+	</windup:pipeline>
+	
+	<windup:java-hints id="java-persistence-hints">
+	<windup:java-hint source-type="INHERITANCE" regex="org.jboss.soa.esb.actions.AbstractActionLifecycle$">
+			#### Changes to Action Class Defintions
+	    	1. Remove 'extends AbstractActionLifecycle' from class definition
+	    	2. Annotate class definition with @Named("ActionName") where 'ActionName' is a unique name of your choice
+	 </windup:java-hint>
+      <windup:java-hint regex="org.jboss.soa.esb.message.Message" effort="1"> 
+		<![CDATA[
+		]]>
+	</windup:java-hint>
+    </windup:java-hints>
+</beans>
