@@ -11,65 +11,141 @@
 		<!-- ######### Highlights ######### -->
 		<windup:xpath-value 
 			description="Convert JMS gateway listener to service binding"
-			xpath="//*[local-name()='jms-listener' and @is-gateway='true'][1]/@name"
+			xpath="//*[local-name()='jms-listener' and @is-gateway='true']/@name"
 			effort="1" inline="false" />
+			
 		<windup:xpath-value 
 			description="ESB-aware listener is no longer required"
-			xpath="//*[local-name()='jms-listener' and (not(@is-gateway) or @is-gateway='false')][1]/@name"
+			xpath="//*[local-name()='jms-listener' and (not(@is-gateway) or @is-gateway='false')]/@name"
 			effort="1" inline="false" />
+			
 		<windup:xpath-value 
 			description="Migrate action processing pipeline for service"
-			xpath="//*[local-name()='service']/@name" effort="1" inline="false" />
+			xpath="//*[local-name()='service']/@name" 
+			effort="1" inline="false" />
+			
+        <windup:xpath-value 
+        	description="Create component service for" 
+        	xpath="//*[local-name()='service']/@name" 
+        	effort="1" inline="false"/>
+        	
 		<windup:xpath-value 
 			description="Create composite service for service"
-			xpath="//*[local-name()='service']/@name" effort="1" inline="false" />
+			xpath="//*[local-name()='service']/@name" 
+			effort="1" inline="false" />
+			
 		<windup:xpath-value 
 			description="Convert action class"
 			xpath="//*[local-name()='action' and not(starts-with(@class, 'org.jboss.soa.esb.actions'))]/@class"
 			effort="1" inline="false" />
 			
 		<!-- ######### Notifications ######### -->
-		<windup:xpath-value 
-			description="JMS Provider XPath Value"
-			xpath="//*[local-name()='jms-provider']/@connection-factory" 
+		<windup:xpath-value
+			description="Action : service binding configuration in jms-bus" 
+			xpath="//*[local-name()='jms-bus']/@busid"
 			effort="1" inline="true">
 			<windup:hints>
 				<windup:regex-hint regex=".*">
-
+					A jms-bus definition can be converted to a JMS or JCA gateway binding
+					on a composite service in SwitchYard. If the jms-bus configuration
+					is used for a non-gateway listener, it does not need to be migrated to
+					SOA 6.
+		
+					For additional information and tips, see the 
+					&lt;a href="https://github.com/windup/soa-migration/" 
+					target="_blank"&gt;jms-bus migration microsite&lt;/a&gt;.
+				</windup:regex-hint>
+			</windup:hints>
+		</windup:xpath-value>
+		
+		<windup:xpath-value
+			description="Action : composite service binding required for listener"
+			xpath="//*[local-name()='jms-listener' and @is-gateway='true']/@name"
+			effort="1" inline="true">
+			<windup:hints>
+				<windup:regex-hint regex=".*">
+					This listener requires a composite service binding in SwitchYard. The
+					configuration for a JCA or JMS binding can be found in the jms-bus
+					definition associated with this listener.
+		
+					For additional information and tips, see the &lt;a
+					href="https://github.com/windup/soa-migration/"
+					target="_blank"&gt;gateway listener microsite&lt;/a&gt;.
+				</windup:regex-hint>
+			</windup:hints>
+		</windup:xpath-value>
+		
+		<windup:xpath-summary
+			description="Action : create component service for action processing pipeline"
+			xpath="//*[local-name()='actions']" 
+			effort="1" inline="true">
+			<windup:hints>
+				<windup:regex-hint regex=".*">
+					The logic and execution flow of a service in SOA 5 is defined in an
+					action processing pipeline. In SOA 6, this logic is contained within
+					a
+					service component definition and expressed using any of the available
+					implementation types in SwitchYard.
+		
+					For additional information and tips, see the &lt;a
+					href="https://github.com/windup/soa-migration/"
+					target="_blank"&gt;action pipline microsite&lt;/a&gt;.
+				</windup:regex-hint>
+			</windup:hints>
+		</windup:xpath-summary>
+		
+		<windup:xpath-value description="Action : convert action class"
+			xpath="//*[local-name()='action' and not(starts-with(@class, 'org.jboss.soa.esb.actions'))]/@class"
+			effort="1" inline="true">
+			<windup:hints>
+				<windup:regex-hint regex=".*">
+					Custom action classes should be migrated to CDI Beans in SOA 6. These beans
+					can be defined as services or called directly from a Camel route.
+		
+					For additional information and tips, see the &lt;a
+					href="https://github.com/windup/soa-migration/"
+					target="_blank"&gt;action class microsite&lt;/a&gt;.
 				</windup:regex-hint>
 			</windup:hints>
 		</windup:xpath-value>
 
 	</windup:pipeline>
 	
-	<!-- JMS gateway listener becomes JCA service binding -->
-
-	<!-- JMS non-gateway listener is no longer required -->
-
-	<!-- JMS provider configuration becomes JCA service binding configuration -->
-
-	<!-- Action processing pipeline is no longer necessary -->
+	<windup:xpath-summary 
+			description="Convert JMS gateway listener to service binding"
+			xpath="//*[local-name()='jms-listener' and @is-gateway='true'][1]/@name"
+			effort="1" inline="true" />
 
 
 	<windup:pipeline type="JAVA" id="java-extension-decorators">
 		<!-- Action class becomes bean service -->
 		<windup:java-classification
 			regex="org.jboss.soa.esb.actions.AbstractActionLifecycle$"
-			description="JBossESB Action Handler Classification" />
+			description="JBossESB Action Class" />
 	</windup:pipeline>
 
 	<windup:java-hints id="java-persistence-hints">
 		<windup:java-hint source-type="INHERITANCE"
 			regex="org.jboss.soa.esb.actions.AbstractActionLifecycle$">
-			#### Changes to Action Class Defintions
-			1. Remove 'extends AbstractActionLifecycle' from class definition
-			2. Annotate class definition with @Named("ActionName") where
-			'ActionName' is a unique name of your choice
+			Action classes in SOA 5 are simply CDI Beans in SOA 6.  The extension of AbstractionActionLifecycle is no longer necessary.
+			An action class can become a standalone service in SOA 6 or it can be invoked as a bean from a Camel route.
+			
+			For additional information and tips, see the &lt;a
+					href="https://github.com/windup/soa-migration/"
+					target="_blank"&gt;action class microsite&lt;/a&gt;.
 		</windup:java-hint>
-		<windup:java-hint regex="org.jboss.soa.esb.message.Message"
-			effort="1"> 
-		<![CDATA[
-		]]>
+		<windup:java-hint regex="org.jboss.soa.esb.message.Message" effort="1"> 
+			Access to the SwitchYard Message instance is no longer required in SOA 6 to access message content for a service invocation.
+			If you are converting this action class to a CDI bean to be invoked from Camel, you can use the org.apache.camel.Message 
+			interface in place of org.jboss.soa.esb.message.Message.
+			
+			For additional information and tips, see the &lt;a
+					href="https://github.com/windup/soa-migration/"
+					target="_blank"&gt;message access microsite&lt;/a&gt;.
+		</windup:java-hint>
+		<windup:java-hint regex="org.jboss.soa.esb.helpers.ConfigTree" effort="1"> 
+			ConfigTree is no longer used in SOA 6.  If you have an action class that requires external configuration, convert the 
+			action class to a Bean Service in SOA 6 and use component properties to configure your Bean Service implementation.
 		</windup:java-hint>
 	</windup:java-hints>
 </beans>
