@@ -7,7 +7,7 @@
 
 
 	<windup:pipeline type="XML" id="jboss-esb-xml">
-
+	
 		<!-- ######### Highlights ######### -->
 		<windup:xpath-value 
 			description="Convert JMS gateway listener to service binding"
@@ -24,11 +24,11 @@
 			xpath="//*[local-name()='service']/@name" 
 			effort="1" inline="false" />
 			
-        <windup:xpath-value 
-        	description="Create component service for" 
-        	xpath="//*[local-name()='service']/@name" 
-        	effort="1" inline="false"/>
-        	
+		<windup:xpath-value 
+		    description="Create component service for"
+		    xpath="//*[local-name()='service']/@name" 
+		    effort="1" inline="false"/>
+	       	
 		<windup:xpath-value 
 			description="Create composite service for service"
 			xpath="//*[local-name()='service']/@name" 
@@ -82,8 +82,7 @@
 			<windup:hints>
 				<windup:regex-hint regex=".*">
 					The logic and execution flow of a service in SOA 5 is defined in an
-					action processing pipeline. In SOA 6, this logic is contained within
-					a
+					action processing pipeline. In SOA 6, this logic is contained within a
 					service component definition and expressed using any of the available
 					implementation types in SwitchYard.
 		
@@ -108,22 +107,16 @@
 				</windup:regex-hint>
 			</windup:hints>
 		</windup:xpath-value>
-
+	
 	</windup:pipeline>
 	
-	<windup:xpath-summary 
-			description="Convert JMS gateway listener to service binding"
-			xpath="//*[local-name()='jms-listener' and @is-gateway='true'][1]/@name"
-			effort="1" inline="true" />
-
-
 	<windup:pipeline type="JAVA" id="java-extension-decorators">
 		<!-- Action class becomes bean service -->
 		<windup:java-classification
 			regex="org.jboss.soa.esb.actions.AbstractActionLifecycle$"
 			description="JBossESB Action Class" />
 	</windup:pipeline>
-
+	
 	<windup:java-hints id="java-persistence-hints">
 		<windup:java-hint source-type="INHERITANCE"
 			regex="org.jboss.soa.esb.actions.AbstractActionLifecycle$">
