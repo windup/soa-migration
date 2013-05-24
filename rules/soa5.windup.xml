@@ -40,37 +40,18 @@
 			effort="1" inline="false" />
 			
 		<!-- ######### Notifications ######### -->
-		<windup:xpath-value
-			description="Action : service binding configuration in jms-bus" 
-			xpath="//*[local-name()='jms-bus']/@busid"
+		
+		<windup:xpath-value description="Action : convert action class"
+			xpath="//*[local-name()='action' and not(starts-with(@class, 'org.jboss.soa.esb.actions'))]/@class"
 			effort="1" inline="true">
 			<windup:hints>
 				<windup:regex-hint regex=".*">
-					A jms-bus definition can be converted to a JMS or JCA gateway binding
-					on a composite service in SwitchYard. If the jms-bus configuration
-					is used for a non-gateway listener, it does not need to be migrated to
-					SOA 6.
-		
-					For additional information and tips, see the 
-					&lt;a href="https://github.com/windup/soa-migration/" 
-					target="_blank"&gt;jms-bus migration microsite&lt;/a&gt;.
-				</windup:regex-hint>
-			</windup:hints>
-		</windup:xpath-value>
-		
-		<windup:xpath-value
-			description="Action : composite service binding required for listener"
-			xpath="//*[local-name()='jms-listener' and @is-gateway='true']/@name"
-			effort="1" inline="true">
-			<windup:hints>
-				<windup:regex-hint regex=".*">
-					This listener requires a composite service binding in SwitchYard. The
-					configuration for a JCA or JMS binding can be found in the jms-bus
-					definition associated with this listener.
+					Custom action classes should be migrated to CDI Beans in SOA 6. These beans
+					can be defined as services or called directly from a Camel route.
 		
 					For additional information and tips, see the &lt;a
 					href="https://github.com/windup/soa-migration/"
-					target="_blank"&gt;gateway listener microsite&lt;/a&gt;.
+					target="_blank"&gt;action class microsite&lt;/a&gt;.
 				</windup:regex-hint>
 			</windup:hints>
 		</windup:xpath-value>
@@ -93,21 +74,58 @@
 			</windup:hints>
 		</windup:xpath-summary>
 		
-		<windup:xpath-value description="Action : convert action class"
-			xpath="//*[local-name()='action' and not(starts-with(@class, 'org.jboss.soa.esb.actions'))]/@class"
+		<windup:xpath-value
+			description="Action : composite service required for service" 
+			xpath="//*[local-name()='service']/@name"
 			effort="1" inline="true">
 			<windup:hints>
 				<windup:regex-hint regex=".*">
-					Custom action classes should be migrated to CDI Beans in SOA 6. These beans
-					can be defined as services or called directly from a Camel route.
+					Each &lt;service&gt; definition in SOA 5 represents a service which can be 
+					called from outside the application through an ESB listner.  The 
+					equivalent definition in SOA 6 is a composite service.
 		
-					For additional information and tips, see the &lt;a
-					href="https://github.com/windup/soa-migration/"
-					target="_blank"&gt;action class microsite&lt;/a&gt;.
+					For additional information and tips, see the 
+					&lt;a href="https://github.com/windup/soa-migration/" 
+					target="_blank"&gt;service migration microsite&lt;/a&gt;.
 				</windup:regex-hint>
 			</windup:hints>
 		</windup:xpath-value>
-	
+		
+		<windup:xpath-value
+			description="Action : composite service binding required for listener"
+			xpath="//*[local-name()='jms-listener' and @is-gateway='true']/@name"
+			effort="1" inline="true">
+			<windup:hints>
+				<windup:regex-hint regex=".*">
+					This listener requires a composite service binding in SwitchYard. The
+					configuration for a JCA or JMS binding can be found in the jms-bus
+					definition associated with this listener.
+		
+					For additional information and tips, see the &lt;a
+					href="https://github.com/windup/soa-migration/"
+					target="_blank"&gt;gateway listener microsite&lt;/a&gt;.
+				</windup:regex-hint>
+			</windup:hints>
+		</windup:xpath-value>
+		
+		<windup:xpath-value
+			description="Action : service binding configuration in jms-bus" 
+			xpath="//*[local-name()='jms-bus']/@busid"
+			effort="1" inline="true">
+			<windup:hints>
+				<windup:regex-hint regex=".*">
+					A jms-bus definition can be converted to a JMS or JCA gateway binding
+					on a composite service in SwitchYard. If the jms-bus configuration
+					is used for a non-gateway listener, it does not need to be migrated to
+					SOA 6.
+		
+					For additional information and tips, see the 
+					&lt;a href="https://github.com/windup/soa-migration/" 
+					target="_blank"&gt;jms-bus migration microsite&lt;/a&gt;.
+				</windup:regex-hint>
+			</windup:hints>
+		</windup:xpath-value>
+		
 	</windup:pipeline>
 	
 	<windup:pipeline type="JAVA" id="java-extension-decorators">
