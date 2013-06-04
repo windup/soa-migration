@@ -1,7 +1,8 @@
 ####Overview
 Action classes in SOA 5 should be migrated to CDI Beans in SOA 6.  The CDI bean can be invoked in one of two ways in SOA 6:
-1. Convert the action class to a CDI Bean Service.  This allows the action class to be exposed directly and/or invoked from other services within the application through references.
-2. Convert the class to a CDI Bean and invoke it directly from a Camel route.  This closely resembles how action classes were invoked from an action processing pipeline in SOA 5.
+
+1. **Convert the action class to a CDI Bean Service.**  This allows the action class to be exposed directly and/or invoked from other services within the application through references.
+2. **Convert the class to a CDI Bean and invoke it directly from a Camel route.**  This closely resembles how action classes were invoked from an action processing pipeline in SOA 5.
 
 Generally speaking, you should use a CDI Bean Service if the logic in an action class will be exposed directly to service consumers.  If multiple action classes are used to provide a service, then consider composing them as CDI beans in a Camel route.  In either case, use of JBossESB APIs in your action class logic will need to be changed.
 
