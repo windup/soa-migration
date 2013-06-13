@@ -353,22 +353,6 @@
                 </windup:regex-hint>
             </windup:hints>
         </windup:xpath-value>
-
-        <windup:xpath-value description="Action : convert BpmProcessor"
-            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.services.jbpm.actions.BpmProcessor']/@class"
-            effort="1" inline="true">
-            <windup:hints>
-                <windup:regex-hint regex=".*">
-                    In order to replace the use of the JMSRouter in SwitchYard, you should use a JMS binding.
-                    You may need to review the options for JMS bindings in SwitchYard if you are using the
-                    unwrap property.
-                    
-                    For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
-                    target="_blank"&gt;action class microsite&lt;/a&gt;.
-                </windup:regex-hint>
-            </windup:hints>
-        </windup:xpath-value>
         
         <windup:xpath-value description="Action : remove TestMessageStore"
             xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.TestMessageStore']/@class"
@@ -403,22 +387,25 @@
             </windup:hints>
         </windup:xpath-value>
         
-        <!---------------------------->
-        <!-- Needs to be written    -->
-        <!---------------------------->
         <windup:xpath-value description="Action : Replace BpmProcessor"
             xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.services.jbpm.actions.BpmProcessor']/@class"
             effort="1" inline="true">
             <windup:hints>
                 <windup:regex-hint regex=".*">
-                    
+                    The BpmProcessor makes calls to jBPM 3 through the jBPM command API.
+                    SwitchYard supports jBPM 5, so you will need to migrate your existing
+                    workflow from jBPM 3 to jBPM 5 and use a SwitchYard BPM implementation. 
+
+                    For additional information and tips, see the &lt;a
+                    href="https://github.com/windup/soa-migration/"
+                    target="_blank"&gt;BPM microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
         </windup:xpath-value>
         
-        <!---------------------------->
+        <!-- ###################### -->
         <!-- Not listed in the labs -->
-        <!---------------------------->
+        <!-- ###################### -->
         <windup:xpath-value
             description="Action : service binding configuration in fs-bus"
             xpath="//*[local-name()='fs-bus']/@busid"
