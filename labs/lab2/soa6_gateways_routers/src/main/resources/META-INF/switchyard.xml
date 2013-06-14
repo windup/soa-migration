@@ -19,8 +19,8 @@
         <ftp:directory>/tmp/input</ftp:directory>
         <ftp:fileName>ftpin.dat</ftp:fileName>
         <ftp:host>localhost</ftp:host>
-        <ftp:username>ftpboy</ftp:username>
-        <ftp:password>camel123.</ftp:password>
+        <ftp:username>lab11</ftp:username>
+        <ftp:password>lab11</ftp:password>
         <ftp:consume>
           <ftp:delete>true</ftp:delete>
         </ftp:consume>
