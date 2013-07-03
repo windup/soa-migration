@@ -50,7 +50,7 @@
                     can be defined as services or called directly from a Camel route.
         
                     For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/action-class-migration.md"
                     target="_blank"&gt;action class microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -68,7 +68,7 @@
                     implementation types in SwitchYard.
         
                     For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/action-pipeline-migration.md"
                     target="_blank"&gt;action pipeline microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -85,7 +85,7 @@
                     equivalent definition in SOA 6 is a composite service.
         
                     For additional information and tips, see the 
-                    &lt;a href="https://github.com/windup/soa-migration/" 
+                    &lt;a href="https://github.com/windup/soa-migration/blob/master/advice/service-migration.md" 
                     target="_blank"&gt;service migration microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -102,11 +102,28 @@
                     definition associated with this listener.
         
                     For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/gateway-listener-migration.md"
                     target="_blank"&gt;gateway listener microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
         </windup:xpath-value>
+
+        <windup:xpath-value
+            description="Action : service binding configuration in hibernate-bus"
+            xpath="//*[local-name()='hibernate-bus']/@busid"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    Although Camel has both hibernate and jpa components that are useful
+                    in consuming records, there isn't any support for hibernate events.   To
+                    migrate this sort of bus to SwitchYard you may have to build a custom
+                    SwitchYard component using the hibernate listeners, or redesign your
+                    requirements to leverage the existing Camel components available (hibernate/jpa/sql)
+                    in this area.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
         
         <windup:xpath-value
             description="Action : service binding configuration in jms-bus" 
@@ -120,7 +137,7 @@
                     SOA 6.
         
                     For additional information and tips, see the 
-                    &lt;a href="https://github.com/windup/soa-migration/" 
+                    &lt;a href="https://github.com/windup/soa-migration/blob/master/advice/jms-bus-migration.md" 
                     target="_blank"&gt;jms-bus migration microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -136,7 +153,7 @@
                     on a composite service in SwitchYard.
                     
                     For additional information and tips, see the
-                    &lt;a href="https://github.com/windup/soa-migration/"
+                    &lt;a href="https://github.com/windup/soa-migration/blob/master/advice/ftp-bus-migration.md"
                     target="_blank"&gt;ftp-bus migration microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -152,8 +169,32 @@
                     on a composite service in SwitchYard.
                     
                     For additional information and tips, see the
-                    &lt;a href="https://github.com/windup/soa-migration/"
+                    &lt;a href="https://github.com/windup/soa-migration/blob/master/advice/camel-bus-migration.md"
                     target="_blank"&gt;camel-bus migration microsite&lt;/a&gt;.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+        
+        <windup:xpath-value
+            description="Action : service binding configuration in udp-listener"
+            xpath="//*[local-name()='udp-listener']/@busid"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    A udp-listener definition can be converted to a TCP/UDP gateway binding
+                    on a composite service in SwitchYard.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
+        <windup:xpath-value
+            description="Action : composite service binding required for listener"
+            xpath="//*[local-name()='jms-jca-provider']/@busidref"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    A jms-jca-provider definition can be converted to a JCA gateway binding
+                    on a composite service in SwitchYard.
                 </windup:regex-hint>
             </windup:hints>
         </windup:xpath-value>
@@ -164,11 +205,11 @@
             effort="1" inline="true">
             <windup:hints>
                 <windup:regex-hint regex=".*">
-                    A http-bus definition can be converted to a HTTP gateway binding
+                    A http-provider definition can be converted to a HTTP gateway binding
                     on a composite service in SwitchYard.
                     
                     For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/gateway-listener-migration.md"
                     target="_blank"&gt;gateway listener microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -184,7 +225,7 @@
                     on a composite service in SwitchYard.
                     
                     For additional information and tips, see the
-                    &lt;a href="https://github.com/windup/soa-migration/"
+                    &lt;a href="https://github.com/windup/soa-migration/blob/master/advice/cron-schedule-migration.md"
                     target="_blank"&gt;cron-schedule migration microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -201,7 +242,7 @@
                     definition associated with this listener.
                     
                     For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/gateway-listener-migration.md"
                     target="_blank"&gt;gateway listener microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -218,7 +259,7 @@
                     definition associated with this listener.
                     
                     For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/gateway-listener-migration.md"
                     target="_blank"&gt;gateway listener microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -234,7 +275,7 @@
                     binding added to your composite service.      
                     
 					For additional information and tips, see the &lt;a
-					href="https://github.com/windup/soa-migration/"
+					href="https://github.com/windup/soa-migration/blob/master/advice/http-gateway-migration.md"
 					target="_blank"&gt;http-gateway microsite&lt;/a&gt;.
 				</windup:regex-hint>
 			</windup:hints>
@@ -250,7 +291,7 @@
                     to specify your Smooks configuration and from/to types.
                     
                     For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/transformation-migration.md"
                     target="_blank"&gt;transformation microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -265,22 +306,23 @@
                     configuration with the "config" attribute.
                     
                     For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/transformation-migration.md"
                     target="_blank"&gt;transformation microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
         </windup:xpath-value>
-        
-        <windup:xpath-value description="Action : Smooks resultType conversion"
-            xpath="//property[@name='resultType' and @value='JAVA']/@resultType"
+
+        <windup:xpath-value description="Action : convert SmooksAction to Transform"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.smooks.SmooksAction']/*[local-name()='property' and @name='resultType']"
             effort="1" inline="true">
             <windup:hints>
                 <windup:regex-hint regex=".*">
-                    In SwitchYard, both the result and from types need to be
-                    specified in a Smooks transformation.
+                    SwitchYard uses a &lt;transform&gt; to replace the invocation of as SmooksAction
+                    to transform message content.    You most likely will want to use a Smooks transform
+                    to specify your Smooks configuration and from/to types.
                     
                     For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/transformation-migration.md"
                     target="_blank"&gt;transformation microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -299,7 +341,7 @@
                     to route them.
                     
                     For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/soap-proxy.md"
                     target="_blank"&gt;SOAPProxy microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -316,7 +358,7 @@
                     logging messages.
                     
                     For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/action-class-migration.md"
                     target="_blank"&gt;action class microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -332,7 +374,7 @@
                     should use Camel's routing (either through Java DSL routes or route.xml).
                     
                     For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/action-class-migration.md"
                     target="_blank"&gt;action class microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -348,7 +390,7 @@
                     unwrap property.
                     
                     For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/action-class-migration.md"
                     target="_blank"&gt;action class microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -397,7 +439,7 @@
                     workflow from jBPM 3 to jBPM 5 and use a SwitchYard BPM implementation. 
 
                     For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/bpm_migration.md"
                     target="_blank"&gt;BPM microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -416,7 +458,7 @@
                     on a composite service in SwitchYard.
                     
                     For additional information and tips, see the
-                    &lt;a href="https://github.com/windup/soa-migration/"
+                    &lt;a href="https://github.com/windup/soa-migration/blob/master/advice/gateway-listener-migration.md"
                     target="_blank"&gt;gateway migration microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -432,7 +474,7 @@
                     on a composite service in SwitchYard.
                     
                     For additional information and tips, see the
-                    &lt;a href="https://github.com/windup/soa-migration/"
+                    &lt;a href="https://github.com/windup/soa-migration/blob/master/advice/gateway-listener-migration.md"
                     target="_blank"&gt;gateway migration microsite&lt;/a&gt;.
                 </windup:regex-hint>
             </windup:hints>
@@ -450,6 +492,314 @@
             </windup:hints>
         </windup:xpath-value>
         
+        <windup:xpath-value description="Action : convert ByteArrayToString to bindings"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.converters.ByteArrayToString']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    JBoss ESB uses a ByteArrayToString action to do conversion on a message body.
+                    SwitchYard would use Camel to do type conversion.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+        
+        <windup:xpath-value description="Action : convert LongToDateConverter to a Camel type conversion"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.converters.LongToDateConverter']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    JBoss ESB uses the LongToDateConverter action to do conversion on a message body.
+                    SwitchYard would use Camel to do type conversion.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+        
+        <windup:xpath-value description="Action : convert LongToDateConverter to a Camel type conversion"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.converters.LongToDateConverter']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    JBoss ESB uses the LongToDateConverter action to do conversion on a message body.
+                    SwitchYard would use Camel to do type conversion.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+        
+        <windup:xpath-value description="Action : convert ObjectToCSVString to a Camel type conversion"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.converters.ObjectToCSVString']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    JBoss ESB uses the ObjectToCSVString action to do conversion on a message body.
+                    SwitchYard would use Camel or a possibly a Smooks transform to do this sort of conversion.
+                    
+                    For additional information and tips, see the &lt;a
+                    href="https://github.com/windup/soa-migration/blob/master/advice/transformation-migration.md"
+                    target="_blank"&gt;transformation microsite&lt;/a&gt;.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+        
+        <windup:xpath-value description="Action : convert ObjectInvoke to a bean service"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.converters.ObjectInvoke']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    JBoss ESB uses a ObjectInvoke action to do invoke a processor on a message.
+                    SwitchYard would use a bean component to do something similar.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
+        <windup:xpath-value description="Action : convert ObjectToXStream to a transform"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.converters.ObjectToXStream']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    JBoss ESB uses a ObjectToXStream action to do convert an Object payload to XML using the XStream
+                    processor.  SwitchYard would use Camel or a possibly a Smooks transform to do this sort of conversion.
+                    
+                    For additional information and tips, see the &lt;a
+                    href="https://github.com/windup/soa-migration/blob/master/advice/transformation-migration.md"
+                    target="_blank"&gt;transformation microsite&lt;/a&gt;.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
+        <windup:xpath-value description="Action : convert XStreamToObject to a transform"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.converters.XStreamToObject']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    JBoss ESB uses a XStreamToObject action to convert XML in a payload to an object using the
+                    XStream processor.   SwitchYard would use Camel or a possibly a Smooks transform to do this sort of conversion.
+                    
+                    For additional information and tips, see the &lt;a
+                    href="https://github.com/windup/soa-migration/blob/master/advice/transformation-migration.md"
+                    target="_blank"&gt;transformation microsite&lt;/a&gt;.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
+        <windup:xpath-value description="Action : convert XsltAction to a transform"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.transformation.xslt.XsltAction']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    JBoss ESB uses a XStreamToObject action to convert XML in a payload to an object using the
+                    XStream processor.   SwitchYard would use Camel or a possibly a Smooks transform to do this sort of conversion.
+                    
+                    For additional information and tips, see the &lt;a
+                    href="https://github.com/windup/soa-migration/blob/master/advice/transformation-migration.md"
+                    target="_blank"&gt;transformation microsite&lt;/a&gt;.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+        
+        <windup:xpath-value description="Action : convert XsltAction to a transform"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.transformation.xslt.XsltAction']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    JBoss ESB uses the XsltAction action to transform documents in a payload.   SwitchYard would use
+                    Camel or a possibly a Smooks transform to do this sort of conversion.
+                    
+                    For additional information and tips, see the &lt;a
+                    href="https://github.com/windup/soa-migration/blob/master/advice/transformation-migration.md"
+                    target="_blank"&gt;transformation microsite&lt;/a&gt;.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
+        <windup:xpath-value description="Action : convert SmooksTransformer to Transform"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.converters.SmooksTransformer']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    SwitchYard uses a &lt;transform&gt; to replace the invocation of a SmooksTransformer
+                    to transform message content.    You most likely will want to use a Smooks transform
+                    to specify your Smooks configuration and from/to types.
+                    
+                    For additional information and tips, see the &lt;a
+                    href="https://github.com/windup/soa-migration/blob/master/advice/transformation-migration.md"
+                    target="_blank"&gt;transformation microsite&lt;/a&gt;.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
+        
+        <windup:xpath-value description="Action : convert MessagePersister to SQL binding"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.MessagePersister']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    SwitchYard uses the MessagePersister action to persist a message.    SwitchYard would uses
+                    a SQL reference binding to accomplish something similar.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
+        <windup:xpath-value description="Action : replace EJBProcessor with a bean service"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.EJBProcessor']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    JBoss ESB uses the EJBProcessor action to invoke a stateless session bean with the
+                    contents of a message.   Similar things can be achieved in SwitchYard through the use of
+                    a bean service.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
+        <windup:xpath-value description="Action : replace ScriptingAction with Camel"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.scripting.ScriptingAction']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    The ScriptingAction executes a script using the BeanScriptingFramework.
+                    You can duplicate this functionality in SwitchYard through Camel
+                    routing (both Java and XML.)
+                    
+                    For additional information and tips, see the &lt;a
+                    href="https://docs.jboss.org/author/display/SWITCHYARD/Camel#Camel-Scriptinglanguages"
+                    target="_blank"&gt;Camel / Scripting languages documentation&lt;/a&gt;.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+        
+        <windup:xpath-value description="Action : replace Aggregator with Camel Aggregator"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.Aggregator']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    JBoss ESB uses the Aggregator action to aggregate a message sequence into a single
+                    aggregated message.      SwitchYard would make use of Camel routing and Camel's
+                    aggregator to accomplish this.
+                    
+                    For more information, see  &lt;a
+                    href="http://camel.apache.org/aggregator.html"
+                    target="_blank"&gt;Camel Aggregator documentation&lt;/a&gt;.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+        
+        <windup:xpath-value description="Action : replace Streaming Aggregator with Camel Aggregator"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.StreamingAggregator']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    JBoss ESB uses the StreamingAggregator action to aggregate a message sequence into a single
+                    aggregated message.      SwitchYard would make use of Camel routing and Camel's
+                    aggregator to accomplish this.
+                    
+                    For more information, see  &lt;a
+                    href="http://camel.apache.org/aggregator.html"
+                    target="_blank"&gt;Camel Aggregator documentation&lt;/a&gt;.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+        
+        <windup:xpath-value description="Action : convert HttpRouter"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.routing.http.HttpRouter']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    In order to replace the use of the HttpRouter in SwitchYard, you should use a http reference binding.
+                    You may need to review the options for http bindings in SwitchYard.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
+        <windup:xpath-value description="Action : convert EmailRouter"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.routing.email.EmailRouter']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    In order to replace the use of the EmailRouter in SwitchYard, you should use a mail reference binding.
+                    You may need to review the options for http bindings in SwitchYard.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
+        <windup:xpath-value description="Action : convert ContentBasedRouter"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.ContentBasedRouter']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    In order to replace the use of the ContentBasedRouter in SwitchYard, you should use Camel to route
+                    messages.
+                    
+                    A good example of this functionality can be found in the quickstarts project in the "rules-camel-jbr"
+                    quickstart.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
+        <windup:xpath-value description="Action : convert StaticWiretap"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.StaticWiretap']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    In order to replace the use of the StaticWiretap in SwitchYard, you should use Camel to route
+                    messages.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
+        <windup:xpath-value description="Action : convert StaticRouter"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.StaticRouter']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    In order to replace the use of the StaticRouter in SwitchYard, you should use Camel to route
+                    messages.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
+        <windup:xpath-value description="Action : convert StaticRouter"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.StaticRouter']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    In order to replace the use of the StaticRouter in SwitchYard, you should use Camel to route
+                    messages.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+        
+        <windup:xpath-value description="Action : convert SOAPProcessor"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.soap.SOAPProcessor']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    In order to replace the use of the StaticRouter in SwitchYard, you should use a SOAP reference
+                    binding in SwitchYard.
+                    
+                    For more information, see  &lt;a
+                    href="https://community.jboss.org/wiki/InvokingExternalWebServiceFromSwitchYard"
+                    target="_blank"&gt;Invoking an external Web Service from SwitchYard&lt;/a&gt;.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
+        <windup:xpath-value description="Action : convert SOAPClient"
+            xpath="//*[local-name()='action' and @class='org.jboss.soa.esb.actions.soap.SOAPClient']/@class"
+            effort="1" inline="true">
+            <windup:hints>
+                <windup:regex-hint regex=".*">
+                    In order to replace the use of the SOAPClient in SwitchYard, you should use a SOAP reference
+                    binding in SwitchYard.
+                    
+                    For more information, see  &lt;a
+                    href="https://community.jboss.org/wiki/InvokingExternalWebServiceFromSwitchYard"
+                    target="_blank"&gt;Invoking an external Web Service from SwitchYard&lt;/a&gt;.
+                </windup:regex-hint>
+            </windup:hints>
+        </windup:xpath-value>
+
+        
+        
     </windup:pipeline>
     
     <windup:pipeline type="JAVA" id="java-extension-decorators">
@@ -466,7 +816,7 @@
             An action class can become a standalone service in SOA 6 or it can be invoked as a bean from a Camel route.
             
             For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/action-class-migration.md"
                     target="_blank"&gt;action class microsite&lt;/a&gt;.
         </windup:java-hint>
         <windup:java-hint regex="org.jboss.soa.esb.message.Message" effort="1"> 
@@ -475,7 +825,7 @@
             interface in place of org.jboss.soa.esb.message.Message.
             
             For additional information and tips, see the &lt;a
-                    href="https://github.com/windup/soa-migration/"
+                    href="https://github.com/windup/soa-migration/blob/master/advice/message-access.md"
                     target="_blank"&gt;message access microsite&lt;/a&gt;.
         </windup:java-hint>
         <windup:java-hint regex="org.jboss.soa.esb.helpers.ConfigTree" effort="1"> 
