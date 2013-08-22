@@ -9,7 +9,7 @@ Generally speaking, you should use a CDI Bean Service if the logic in an action 
 ####SOA 5 Action Class
 Here's an example of a SOA 5 Action class:
 ```java
-public class MyAction extends AbstractActionLifecycle
+public class MyJMSListenerAction extends AbstractActionLifecycle
 {   
     protected ConfigTree  _config;
     
