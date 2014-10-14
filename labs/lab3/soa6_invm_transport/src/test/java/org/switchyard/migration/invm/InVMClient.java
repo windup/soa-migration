@@ -9,7 +9,7 @@ import org.switchyard.remote.http.HttpInvoker;
 public class InVMClient {
 	
 	private static final QName SERVICE = new QName(
-            "urn:org.switchyard.migration:soa6_invm_transport:1.0",
+            "urn:org.switchyard.migration:soa6-invm-transport:1.0",
             "Service1");
     private static final String URL = "http://localhost:8080/switchyard-remote";
 
@@ -24,7 +24,7 @@ public class InVMClient {
 
         // Create the request message
         RemoteMessage message = new RemoteMessage();
-        message.setService(SERVICE).setContent("InVM in SOA-P 6");
+        message.setService(SERVICE).setOperation("process").setContent("InVM in SOA-P 6");
 
         // Invoke the service
         RemoteMessage reply = invoker.invoke(message);

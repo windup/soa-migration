@@ -3,16 +3,16 @@
   <sca:composite name="soa6_bpm_processor" targetNamespace="urn:org.switchyard.migration:soa6_bpm_processor:1.0">
     <sca:component name="ProcessDefinition">
       <bpm:implementation.bpm persistent="false" processId="OrchestrationService">
-        <bpm:actions>
-          <bpm:action type="START_PROCESS">
+        <bpm:operations>
+          <bpm:operation name="process" type="START_PROCESS">
             <bpm:inputs>
-              <bpm:mapping expression="message.content" expressionType="MVEL" variable="contentInput"/>
+              <bpm:input from="message.content" to="Parameter"/>
             </bpm:inputs>
             <bpm:outputs>
-              <bpm:mapping expression="contentOutput" expressionType="MVEL" variable="contentOutput"/>
+              <bpm:output from="Result" to="message.content"/>
             </bpm:outputs>
-          </bpm:action>
-        </bpm:actions>
+          </bpm:operation>
+        </bpm:operations>
         <bpm:manifest>
           <bpm:resources>
             <bpm:resource location="ProcessDefinition.bpmn" type="BPMN2"/>
@@ -68,8 +68,8 @@
     </sca:service>
   </sca:composite>
   <domain>
-    <handlers>
-      <handler class="org.switchyard.handlers.MessageTrace" name="MessageTrace"/>
-    </handlers>
+    <properties>
+      <property name="org.switchyard.handlers.MessageTrace" value="true"/>
+    </properties>
   </domain>
 </switchyard>
