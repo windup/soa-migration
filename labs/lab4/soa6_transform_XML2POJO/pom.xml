@@ -7,7 +7,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>org.switchyard.migration:soa6_transform_XML2POJO</name>
   <properties>
-    <switchyard.version>0.8.1.Final</switchyard.version>
+    <switchyard.version>1.1.0.Final</switchyard.version>
   </properties>
   <dependencies>
     <dependency>
@@ -95,6 +95,15 @@
           <scannerClassNames>
             <param>org.switchyard.transform.config.model.TransformSwitchYardScanner</param>
           </scannerClassNames>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <configuration>
+          <executable>java</executable>
+          <classpathScope>test</classpathScope>
+          <mainClass>org.switchyard.migration.xml2pojo.TransformClient</mainClass>
         </configuration>
       </plugin>
       <plugin>

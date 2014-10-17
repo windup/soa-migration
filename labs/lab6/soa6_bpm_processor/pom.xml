@@ -7,7 +7,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>org.switchyard.migration:soa6_bpm_processor</name>
   <properties>
-    <switchyard.version>0.8.1.Final</switchyard.version>
+    <switchyard.version>2.0.0.Alpha3</switchyard.version>
   </properties>
   <dependencies>
     <dependency>
@@ -35,7 +35,18 @@
       <artifactId>switchyard-test</artifactId>
       <version>${switchyard.version}</version>
       <scope>test</scope>
+      <exclusions>
+          <exclusion>
+		<groupId>org.apache.deltaspike.core</groupId>
+		<artifactId>deltaspike-core-impl</artifactId>
+          </exclusion>
+	  <exclusion>
+                <groupId>org.apache.deltaspike.cdictrl</groupId>
+                <artifactId>deltaspike-cdictrl-api</artifactId>
+          </exclusion>
+      </exclusions>
     </dependency>
+    
     <dependency>
       <groupId>org.switchyard.components</groupId>
       <artifactId>switchyard-component-test-mixin-cdi</artifactId>
@@ -105,6 +116,15 @@
           <scannerClassNames>
             <param>org.switchyard.transform.config.model.TransformSwitchYardScanner</param>
           </scannerClassNames>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <configuration>
+          <executable>java</executable>
+          <classpathScope>test</classpathScope>
+          <mainClass>org.switchyard.migration.bpm.BPMProcessorClient</mainClass>
         </configuration>
       </plugin>
       <plugin>
