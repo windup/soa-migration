@@ -59,9 +59,9 @@ The jBPM team offers a jPDL to BPMN2 migration tool that assists users in moving
 
 [jBPM 5 Migration Project](https://docs.jboss.org/author/display/SWITCHYARD/Transformation jBPM 5 Migration Project)
 
-[Article on jBPM3 to jBPM5 migration, Part 1](http://www.schabell.org/2011/06/jbpm-migrations-hints-and-tips-part-1.html Article on jBPM3 to jBPM5 migration, Part 1)
+[Article on jBPM3 to jBPM5 migration, Part 1](http://www.schabell.org/2011/06/jbpm-migrations-hints-and-tips-part-1.html)
 
-[Article on jBPM3 to jBPM5 migration, Part 2](http://www.schabell.org/2011/06/jbpm-migrations-hints-and-tips-for.html Article on jBPM3 to jBPM5 migration, Part 2)
+[Article on jBPM3 to jBPM5 migration, Part 2](http://www.schabell.org/2011/06/jbpm-migrations-hints-and-tips-for.html)
 
 ###### Callbacks
 SOA-P 5 uses a built-in callback service which allows ESB to safely signal jBPM processes - ESB can check the state of the process, and then signal the process.     
